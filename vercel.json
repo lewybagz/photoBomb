@@ -4,7 +4,7 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api/|.*\\.(png|jpg|jpeg|svg|ico|css|js)$).*)",
       "destination": "/index.html"
     }
   ],
