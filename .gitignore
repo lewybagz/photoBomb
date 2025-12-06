@@ -83,7 +83,6 @@ coverage/
 
 # Gatsby files
 .cache/
-public
 
 # Storybook build outputs
 .out
@@ -130,3 +129,4 @@ Desktop.ini
 .local
 .dev
 .development
+
