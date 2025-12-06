@@ -161,7 +161,7 @@ export function CommentsSection({ photoId }: CommentsSectionProps) {
         <button
           onClick={loadEarlier}
           disabled={loadingMore}
-          className="flex w-full items-center justify-center gap-2 py-2 text-sm text-gray-300 hover:text-gray-800"
+          className="flex w-full items-center justify-center gap-2 py-2 text-sm text-muted-foreground hover:text-foreground"
         >
           {loadingMore ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -177,7 +177,7 @@ export function CommentsSection({ photoId }: CommentsSectionProps) {
       {/* Comments List */}
       <div className="space-y-3">
         {comments.length === 0 ? (
-          <p className="py-4 text-center text-sm text-gray-500">
+          <p className="py-4 text-center text-sm text-muted-foreground">
             No comments yet. Be the first to comment!
           </p>
         ) : (
@@ -195,14 +195,14 @@ export function CommentsSection({ photoId }: CommentsSectionProps) {
               </Avatar>
               <div className="flex-1">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-foreground">
                     {comment.userName}
                   </span>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-muted-foreground">
                     {comment.createdAt.toLocaleDateString()}
                   </span>
                 </div>
-                <p className="mt-0.5 text-sm text-gray-700">{comment.text}</p>
+                <p className="mt-0.5 text-sm text-foreground">{comment.text}</p>
               </div>
             </div>
           ))
@@ -215,7 +215,7 @@ export function CommentsSection({ photoId }: CommentsSectionProps) {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment..."
-          className="flex-1 border-gray-300 focus:ring-red-500"
+          className="flex-1 bg-background text-foreground placeholder:text-muted-foreground"
           disabled={sending}
         />
         <Button

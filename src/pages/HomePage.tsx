@@ -33,12 +33,16 @@ export function HomePage() {
       <header className="relative">
         <nav className="mx-auto mt-10 flex max-w-6xl items-center justify-between rounded-2xl border border-[color:var(--panel-border)] bg-[color:var(--panel)] px-6 py-4 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur-lg lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--primary),#ff9f68)] shadow-[0_10px_20px_-15px_var(--shadow-glow)]">
-              <Camera className="h-5 w-5 text-primary-foreground" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
+              <img
+                src="/familygallerylogonowords.png"
+                alt="Photo Bomb"
+                className="h-full w-full"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-                Lewis family
+                Family
               </span>
               <h4 className="text-xl font-semibold tracking-wide">
                 Photo Bomb
@@ -72,7 +76,7 @@ export function HomePage() {
                   <span className="bg-gradient-to-r from-primary via-[#ff8f70] to-[#ffb27a] bg-clip-text text-transparent">
                     memory aglow
                   </span>{" "}
-                  for the Lewis family.
+                  for the Family.
                 </h1>
                 <p className="max-w-xl text-lg text-gray-300">
                   Photo Bomb gathers our day-to-day snapshots and the big
@@ -104,38 +108,11 @@ export function HomePage() {
                 className="absolute -inset-10 -z-10 rounded-[3rem] bg-[linear-gradient(135deg,rgba(255,111,97,0.18),rgba(78,205,196,0.16))] blur-2xl"
                 aria-hidden
               />
-              <div className="relative grid gap-4">
-                <div className="overflow-hidden rounded-[2rem] border border-[color:var(--panel-border)] bg-white/85 shadow-[0_28px_60px_-35px_var(--shadow-glow)]">
-                  <img
-                    src="/happy-family-picnic-outdoors.jpg"
-                    alt="Family picnic"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="overflow-hidden rounded-[2rem] border border-[color:var(--panel-border)] bg-white/85 shadow-[0_24px_55px_-34px_var(--shadow-glow)]">
-                    <img
-                      src="/children-playing-beach-summer.jpg"
-                      alt="Children at the beach"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="overflow-hidden rounded-[2rem] border border-[color:var(--panel-border)] bg-white/85 shadow-[0_24px_55px_-34px_var(--shadow-glow)]">
-                    <img
-                      src="/grandparents-grandchildren-cooking-kitchen.jpg"
-                      alt="Grandparents cooking with grandchildren"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="overflow-hidden rounded-[2rem] border border-[color:var(--panel-border)] bg-white/85 shadow-[0_24px_55px_-34px_var(--shadow-glow)]">
-                  <img
-                    src="/family-celebration-birthday-party.jpg"
-                    alt="Family birthday celebration"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
+              <img
+                src="/familygallerylogonowords.png"
+                alt="Family picnic"
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
         </div>
@@ -145,7 +122,7 @@ export function HomePage() {
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center justify-center rounded-full border border-[color:var(--panel-border)] bg-primary-soft px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
-              Why we built it
+              Why I built it
             </span>
             <h2 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
               Built for the way our family loves, shares, and remembers

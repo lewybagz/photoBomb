@@ -54,7 +54,7 @@ export function GalleryHeader() {
           >
             <div className="flex h-full w-full items-center justify-center rounded-lg">
               <img
-                src="/familygallerylogo.png"
+                src="/familygallerylogonowords.png"
                 alt="Photo Bomb"
                 className="h-10 w-10"
               />

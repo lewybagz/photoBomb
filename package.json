@@ -8,10 +8,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
+    "git": "git add . && git commit -m \"Build update - %date% %time%\" && git push origin main",
     "deploy": "vercel --prod",
     "vercel-deploy": "vercel --yes --prod",
     "type-check": "tsc --noEmit",
-    "ci": "npm run type-check && npm run build"
+    "ci": "npm run type-check && npm run build && npm run git"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, Eye, EyeOff } from "lucide-react";
 
 export function RegisterForm() {
   const [displayName, setDisplayName] = useState("");
@@ -23,6 +23,7 @@ export function RegisterForm() {
   const [familyPassword, setFamilyPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { register, error, clearError } = useAuth();
   const navigate = useNavigate();
 
@@ -54,9 +55,11 @@ export function RegisterForm() {
   const displayError = localError || error;
 
   return (
-    <Card className="w-full max-w-md bg-white border border-gray-200">
+    <Card className="w-full max-w-md bg-transparent border-none">
       <CardHeader className="space-y-2 text-center">
-        <CardTitle className="text-2xl font-medium">Join the family</CardTitle>
+        <CardTitle className="text-2xl font-medium text-white">
+          Join the family
+        </CardTitle>
         <CardDescription className="text-sm text-gray-300">
           Create your account
         </CardDescription>
@@ -64,7 +67,7 @@ export function RegisterForm() {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {displayError && (
-            <div className="flex items-center gap-2 rounded-2xl border border-destructive/20 bg-destructive/15 p-4 text-sm text-destructive">
+            <div className="flex items-center gap-2 rounded border border-red-800 bg-red-950/50 p-3 text-sm text-red-400">
               <AlertCircle className="h-4 w-4" />
               <span>{displayError}</span>
               <button
@@ -73,7 +76,7 @@ export function RegisterForm() {
                   setLocalError(null);
                   clearError();
                 }}
-                className="ml-auto text-xs underline"
+                className="ml-auto text-xs underline hover:no-underline text-red-300"
               >
                 Dismiss
               </button>
@@ -90,6 +93,7 @@ export function RegisterForm() {
               onChange={(e) => setDisplayName(e.target.value)}
               required
               disabled={isLoading}
+              className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500"
             />
           </div>
 
@@ -103,6 +107,7 @@ export function RegisterForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={isLoading}
+              className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500"
             />
           </div>
 
@@ -116,27 +121,47 @@ export function RegisterForm() {
               onChange={(e) => setRelation(e.target.value)}
               required
               disabled={isLoading}
+              className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500"
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="familyPassword">Family password</Label>
-            <Input
-              id="familyPassword"
-              type="password"
-              placeholder="Enter the shared password from Lewis"
-              value={familyPassword}
-              onChange={(e) => setFamilyPassword(e.target.value)}
-              required
-              disabled={isLoading}
-            />
-            <p className="text-xs text-muted-foreground">
+            <div className="relative">
+              <Input
+                id="familyPassword"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter the shared password from Lewis"
+                value={familyPassword}
+                onChange={(e) => setFamilyPassword(e.target.value)}
+                required
+                disabled={isLoading}
+                className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 focus:outline-none focus:text-gray-300"
+                disabled={isLoading}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+            <p className="text-xs text-gray-300">
               We use a single password for everyone so only family can join.
               Please keep it private.
             </p>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+            disabled={isLoading}
+          >
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -149,11 +174,11 @@ export function RegisterForm() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-gray-400">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-red-400 hover:text-red-300 hover:underline"
           >
             Sign in
           </Link>

@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error("Family password is not configured.");
       }
       if (passcode !== familyPasscode) {
-        throw new Error("That is not the Lewis family password.");
+        throw new Error("That is not the Family password.");
       }
       const email = await resolveMemberEmail(memberId);
       await signInWithEmailAndPassword(auth, email, passcode);

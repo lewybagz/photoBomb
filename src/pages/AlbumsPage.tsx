@@ -78,7 +78,7 @@ export function AlbumsPage() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-medium mb-2">Family Albums</h1>
-            <p className="text-gray-300 max-w-xl">
+            <p className="text-muted-foreground max-w-xl">
               Organize your photos into themed collections.
             </p>
           </div>
@@ -99,13 +99,13 @@ export function AlbumsPage() {
           <div className="flex h-64 flex-col items-center justify-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded">
               <img
-                src="/familygallerylogo.png"
+                src="/familygallerylogonowords.png"
                 alt="Photo Bomb"
                 className="h-full w-full"
               />
             </div>
-            <p className="text-lg font-medium text-gray-900">No albums yet</p>
-            <p className="mb-4 text-sm text-gray-300">
+            <p className="text-lg font-medium text-foreground">No albums yet</p>
+            <p className="mb-4 text-sm text-muted-foreground">
               Create your first album to organize your photos.
             </p>
             <Button
@@ -122,10 +122,10 @@ export function AlbumsPage() {
               <div key={album.id} className="group relative">
                 <Link
                   to={`/albums/${album.id}`}
-                  className="block overflow-hidden rounded border border-gray-200 bg-white transition-colors duration-200 hover:border-gray-300"
+                  className="block overflow-hidden rounded border border-border bg-card transition-colors duration-200 hover:border-border rounded-xl"
                 >
                   {/* Cover Image */}
-                  <div className="aspect-square bg-gray-100">
+                  <div className="aspect-square bg-gray-100 ">
                     {album.coverPhotoUrl ? (
                       <img
                         src={album.coverPhotoUrl || "/placeholder.svg"}
@@ -144,10 +144,10 @@ export function AlbumsPage() {
 
                   {/* Album Info */}
                   <div className="p-4">
-                    <p className="truncate text-base font-medium text-gray-900">
+                    <p className="truncate text-base font-medium text-foreground">
                       {album.name}
                     </p>
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {album.photoCount} photo
                       {album.photoCount !== 1 ? "s" : ""}
                     </p>
@@ -160,7 +160,7 @@ export function AlbumsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute right-3 top-3 h-8 w-8 rounded-full border border-[color:var(--panel-border)] bg-white/80 opacity-0 shadow-[0_14px_24px_-20px_var(--shadow-glow)] backdrop-blur transition-opacity group-hover:opacity-100"
+                      className="absolute right-3 top-3 h-8 w-8 rounded-full border border-border bg-background/80 opacity-0 shadow-[0_14px_24px_-20px_var(--shadow-glow)] backdrop-blur transition-opacity group-hover:opacity-100"
                     >
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>

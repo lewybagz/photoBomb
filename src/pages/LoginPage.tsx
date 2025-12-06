@@ -10,13 +10,20 @@ export function LoginPage() {
         <div className="absolute right-[-12%] top-[35%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,var(--accent-soft),transparent_70%)] blur-3xl" />
       </div>
 
-      <Link to="/" className="mb-10 flex items-center gap-3 rounded-full border border-[color:var(--panel-border)] bg-white/70 px-6 py-3 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--primary),#ff9f68)] shadow-[0_12px_24px_-18px_var(--shadow-glow)]">
-          <Camera className="h-5 w-5 text-primary-foreground" />
+      <Link
+        to="/"
+        className="mb-10 flex items-center gap-3 rounded-full border border-[color:var(--panel-border)] bg-white/70 px-6 py-3 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur"
+      >
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
+          <img
+            src="/familygallerylogonowords.png"
+            alt="Photo Bomb"
+            className="h-full w-full"
+          />
         </div>
         <div className="flex flex-col">
           <span className="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">
-            Lewis family
+            Family
           </span>
           <span className="text-xl font-semibold tracking-wide">
             Photo Bomb

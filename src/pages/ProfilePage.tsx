@@ -99,7 +99,7 @@ export function ProfilePage() {
   if (authLoading || !user) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-red-500 border-t-transparent" />
       </div>
     );
   }
@@ -125,20 +125,20 @@ export function ProfilePage() {
       <GalleryHeader />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Profile Header */}
-        <div className="mb-8 flex flex-col items-center rounded-3xl border border-[color:var(--panel-border)] bg-[color:var(--panel)]/90 px-8 py-10 text-center shadow-[0_28px_60px_-32px_var(--shadow-glow)] backdrop-blur-lg">
-          <Avatar className="mb-4 h-28 w-28 border-4 border-white/70 shadow-[0_18px_40px_-26px_var(--shadow-glow)]">
+        <div className="mb-8 flex flex-col items-center rounded-lg border border-gray-800 bg-gray-900 px-8 py-10 text-center">
+          <Avatar className="mb-4 h-28 w-28 border-4 border-gray-700">
             <AvatarImage src={user.photoURL || undefined} />
-            <AvatarFallback className="bg-[linear-gradient(135deg,var(--primary),#ff9f68)] text-2xl font-semibold uppercase text-primary-foreground">
+            <AvatarFallback className="bg-red-500 text-2xl font-semibold uppercase text-white">
               {initials}
             </AvatarFallback>
           </Avatar>
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-3xl font-medium text-white">
             {userData?.displayName}
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">{user.email}</p>
+          <p className="mt-2 text-sm text-gray-400">{user.email}</p>
           {userData?.relation && (
-            <p className="mt-1 inline-flex items-center gap-2 rounded-full border border-[color:var(--panel-border)] bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-              <span className="size-2 rounded-full bg-primary" />
+            <p className="mt-1 inline-flex items-center gap-2 rounded-full border border-gray-700 bg-gray-800 px-4 py-1 text-xs font-medium uppercase tracking-wider text-red-400">
+              <span className="size-2 rounded-full bg-red-400" />
               {userData.relation}
             </p>
           )}
@@ -146,75 +146,76 @@ export function ProfilePage() {
 
         {/* Stats */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <Card className="items-center py-6 text-center">
+          <Card className="border-gray-800 bg-gray-900 items-center py-6 text-center">
             <CardContent className="flex flex-col items-center py-0">
-              <ImageIcon className="mb-3 h-6 w-6 text-primary" />
+              <ImageIcon className="mb-3 h-6 w-6 text-red-400" />
               {loadingStats ? (
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
               ) : (
                 <>
-                  <span className="text-2xl font-semibold">{photoCount}</span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-2xl font-semibold text-white">{photoCount}</span>
+                  <span className="text-xs text-gray-400">
                     Photos shared
                   </span>
                 </>
               )}
             </CardContent>
           </Card>
-          <Card className="items-center py-6 text-center">
+          <Card className="border-gray-800 bg-gray-900 items-center py-6 text-center">
             <CardContent className="flex flex-col items-center py-0">
-              <Heart className="mb-3 h-6 w-6 text-[var(--favorite)]" />
-              <span className="text-2xl font-semibold">{favorites.length}</span>
-              <span className="text-xs text-muted-foreground">
+              <Heart className="mb-3 h-6 w-6 text-red-400" />
+              <span className="text-2xl font-semibold text-white">{favorites.length}</span>
+              <span className="text-xs text-gray-400">
                 Favorites saved
               </span>
             </CardContent>
           </Card>
-          <Card className="items-center py-6 text-center">
+          <Card className="border-gray-800 bg-gray-900 items-center py-6 text-center">
             <CardContent className="flex flex-col items-center py-0">
-              <CalendarDays className="mb-3 h-6 w-6 text-primary" />
-              <span className="text-sm font-semibold">{joinedDate}</span>
-              <span className="text-xs text-muted-foreground">Joined</span>
+              <CalendarDays className="mb-3 h-6 w-6 text-red-400" />
+              <span className="text-sm font-semibold text-white">{joinedDate}</span>
+              <span className="text-xs text-gray-400">Joined</span>
             </CardContent>
           </Card>
         </div>
 
         {/* Edit Profile */}
-        <Card className="border border-[color:var(--panel-border)] bg-[color:var(--panel)]/90">
+        <Card className="border-gray-800 bg-gray-900">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Camera className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Camera className="h-5 w-5 text-red-400" />
               Profile details
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-gray-400">
               Update how your name appears to everyone in the gallery.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="displayName">Display Name</Label>
+              <Label htmlFor="displayName" className="text-gray-300">Display Name</Label>
               <Input
                 id="displayName"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Your name"
+                className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500"
               />
             </div>
             <div className="space-y-2">
-              <Label>Email</Label>
-              <Input value={user.email || ""} disabled className="bg-muted" />
-              <p className="text-xs text-muted-foreground">
+              <Label className="text-gray-300">Email</Label>
+              <Input value={user.email || ""} disabled className="border-gray-700 bg-gray-800 text-gray-500" />
+              <p className="text-xs text-gray-500">
                 Email cannot be changed
               </p>
             </div>
             <div className="space-y-2">
-              <Label>Relation to Lewis</Label>
+              <Label className="text-gray-300">Relation to Lewis</Label>
               <Input
                 value={userData?.relation || ""}
                 disabled
-                className="bg-muted"
+                className="border-gray-700 bg-gray-800 text-gray-500"
               />
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-500">
                 Need this adjusted? Let Lewis know.
               </p>
             </div>
@@ -225,7 +226,7 @@ export function ProfilePage() {
                 !displayName.trim() ||
                 displayName === userData?.displayName
               }
-              className="w-full"
+              className="w-full bg-red-600 hover:bg-red-700 text-white"
             >
               {saving ? (
                 <>

@@ -95,7 +95,7 @@ export function PhotoGrid({
       <div className="flex h-64 flex-col items-center justify-center text-center">
         <div className="mb-4 flex h-24 w-24 items-center justify-center rounded">
           <img
-            src="/familygallerylogo.png"
+            src="/familygallerylogonowords.png"
             alt="Photo Bomb"
             className="h-full w-full"
           />
@@ -154,7 +154,7 @@ function PhotoCard({ photo, isFavorite, onClick }: PhotoCardProps) {
   return (
     <button
       onClick={onClick}
-      className="group relative aspect-square overflow-hidden bg-gray-100 focus:outline-none focus:ring-1 focus:ring-red-500 hover:bg-gray-200 transition-colors duration-200"
+      className="group relative aspect-square overflow-hidden bg-gray-100 focus:outline-none focus:ring-1 focus:ring-red-500 hover:bg-gray-200 transition-colors duration-200 rounded-xl"
     >
       <img
         src={photo.thumbUrl || "/placeholder.svg"}

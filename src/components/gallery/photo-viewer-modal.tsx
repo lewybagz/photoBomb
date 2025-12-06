@@ -31,7 +31,16 @@ import { cn } from "@/lib/utils";
 import { CommentsSection } from "./comments-section";
 import { AddToAlbumModal } from "@/components/albums/add-to-album-modal";
 import { getStorage, ref, getBlob, deleteObject } from "firebase/storage";
-import { deleteDoc, doc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 interface PhotoViewerModalProps {
@@ -145,7 +154,24 @@ export function PhotoViewerModal({
 
     setIsDeleting(true);
     try {
-      // Delete from Firestore first
+      // First, remove this photo from all users' favorites
+      const usersRef = collection(db, "users");
+      const q = query(
+        usersRef,
+        where("favorites", "array-contains", currentPhoto.id)
+      );
+      const usersSnapshot = await getDocs(q);
+
+      // Update all users who have this photo in favorites
+      const updatePromises = usersSnapshot.docs.map((userDoc) =>
+        updateDoc(doc(db, "users", userDoc.id), {
+          favorites: arrayRemove(currentPhoto.id),
+        })
+      );
+
+      await Promise.all(updatePromises);
+
+      // Delete from Firestore
       await deleteDoc(doc(db, "photos", currentPhoto.id));
 
       // Extract storage paths and delete files
@@ -192,7 +218,7 @@ export function PhotoViewerModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-h-[95vh] max-w-[95vw] gap-0 overflow-hidden bg-black p-0 sm:max-w-5xl">
+        <DialogContent className="max-h-[95vh] max-w-[95vw] gap-0 overflow-hidden bg-black p-0 sm:max-w-5xl rounded-2xl">
           <DialogTitle className="sr-only">
             Photo by {currentPhoto.ownerName} -{" "}
             {currentPhoto.createdAt.toLocaleDateString()}

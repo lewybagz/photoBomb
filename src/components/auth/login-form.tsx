@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, Eye, EyeOff } from "lucide-react";
 
 export function LoginForm() {
   const [familyPassword, setFamilyPassword] = useState("");
@@ -23,6 +23,7 @@ export function LoginForm() {
   const [membersLoading, setMembersLoading] = useState(true);
   const [members, setMembers] = useState<FamilyMember[]>([]);
   const [membersError, setMembersError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { login, fetchFamilyMembers, error, clearError } = useAuth();
   const navigate = useNavigate();
 
@@ -144,16 +145,30 @@ export function LoginForm() {
 
           <div className="space-y-2">
             <Label htmlFor="family-password">Family password</Label>
-            <Input
-              id="family-password"
-              type="password"
-              placeholder="Enter super secret password"
-              value={familyPassword}
-              onChange={(e) => setFamilyPassword(e.target.value)}
-              required
-              disabled={isLoading || membersLoading || members.length === 0}
-              className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500"
-            />
+            <div className="relative">
+              <Input
+                id="family-password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter super secret password"
+                value={familyPassword}
+                onChange={(e) => setFamilyPassword(e.target.value)}
+                required
+                disabled={isLoading || membersLoading || members.length === 0}
+                className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:ring-red-500 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 focus:outline-none focus:text-gray-300"
+                disabled={isLoading || membersLoading || members.length === 0}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
           </div>
 
           <Button

@@ -223,8 +223,10 @@ export function UploadModal({ open, onOpenChange }: UploadModalProps) {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            "relative flex min-h-[200px] flex-col items-center justify-center rounded border-2 border-dashed border-gray-300 transition-colors",
-            isDragging ? "border-red-500 bg-red-50" : "hover:border-red-400"
+            "relative flex min-h-[200px] flex-col items-center justify-center rounded border-2 border-dashed border-muted transition-colors",
+            isDragging
+              ? "border-red-500 bg-red-50 dark:bg-red-950/20"
+              : "hover:border-red-400"
           )}
         >
           <input
@@ -235,17 +237,17 @@ export function UploadModal({ open, onOpenChange }: UploadModalProps) {
             className="absolute inset-0 cursor-pointer opacity-0"
             disabled={isUploading}
           />
-          <Upload className="mb-3 h-10 w-10 text-gray-400" />
-          <p className="text-sm font-medium text-gray-900">
+          <Upload className="mb-3 h-10 w-10 text-muted-foreground" />
+          <p className="text-sm font-medium text-foreground">
             Drag and drop photos here
           </p>
-          <p className="text-xs text-gray-500">or click to browse</p>
+          <p className="text-xs text-muted-foreground">or click to browse</p>
         </div>
 
         {/* File Previews */}
         {files.length > 0 && (
           <div className="mt-4 space-y-2">
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-foreground">
               {files.length} photo{files.length !== 1 ? "s" : ""} selected
             </p>
             <div className="grid max-h-[400px] grid-cols-3 gap-4 overflow-y-auto">
@@ -263,7 +265,7 @@ export function UploadModal({ open, onOpenChange }: UploadModalProps) {
                       <div className="absolute inset-0 flex items-center justify-center bg-white/90">
                         <div className="text-center">
                           <Loader2 className="mx-auto h-6 w-6 animate-spin text-red-500" />
-                          <span className="mt-1 block text-xs text-gray-300">
+                          <span className="mt-1 block text-xs text-muted-foreground">
                             {file.progress}%
                           </span>
                         </div>
@@ -300,12 +302,12 @@ export function UploadModal({ open, onOpenChange }: UploadModalProps) {
                       placeholder="Photo title (optional)"
                       value={file.title || ""}
                       onChange={(e) => updateFileTitle(file.id, e.target.value)}
-                      className="text-xs border-gray-300 focus:ring-red-500"
+                      className="text-xs border-border bg-background text-foreground placeholder:text-muted-foreground"
                       maxLength={100}
                     />
                   )}
                   {file.status !== "pending" && file.title && (
-                    <p className="text-xs text-gray-500 truncate px-1">
+                    <p className="text-xs text-muted-foreground truncate px-1">
                       {file.title}
                     </p>
                   )}
