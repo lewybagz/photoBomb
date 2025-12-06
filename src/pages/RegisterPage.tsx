@@ -16,7 +16,7 @@ export function RegisterPage() {
       >
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
           <img
-            src="/familygallerylogonopadding.png"
+            src="/familygallerylogonowords.png"
             alt="Photo Bomb"
             className="h-full w-full"
           />
