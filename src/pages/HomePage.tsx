@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/auth-context";
 import { Button } from "@/components/ui/button";
 import { Camera, Heart, Users, ImageIcon } from "lucide-react";
+import logoImage from "@/assets/images/familygallerylogonowords.png";
 
 export function HomePage() {
   const { user, loading } = useAuth();
@@ -34,11 +35,7 @@ export function HomePage() {
         <nav className="mx-auto mt-10 flex max-w-6xl items-center justify-between rounded-2xl border border-[color:var(--panel-border)] bg-[color:var(--panel)] px-6 py-4 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur-lg lg:px-8">
           <Link to="/" className="flex items-center gap-3">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
-              <img
-                src="/familygallerylogonowords.png"
-                alt="Photo Bomb"
-                className="h-full w-full"
-              />
+              <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
@@ -109,7 +106,7 @@ export function HomePage() {
                 aria-hidden
               />
               <img
-                src="/familygallerylogonowords.png"
+                src={logoImage}
                 alt="Family picnic"
                 className="h-full w-full object-cover"
               />

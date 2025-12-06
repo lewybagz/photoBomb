@@ -5,6 +5,7 @@ import { useGallery, type Photo } from "@/contexts/gallery-context";
 import { useFavorites } from "@/contexts/favorites-context";
 import { Heart, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoImage from "@/assets/images/familygallerylogonowords.png";
 
 interface PhotoGridProps {
   photos?: Photo[];
@@ -94,11 +95,7 @@ export function PhotoGrid({
     return (
       <div className="flex h-64 flex-col items-center justify-center text-center">
         <div className="mb-4 flex h-24 w-24 items-center justify-center rounded">
-          <img
-            src="/familygallerylogonowords.png"
-            alt="Photo Bomb"
-            className="h-full w-full"
-          />
+          <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
         </div>
         <p className="text-lg font-medium text-gray-900">
           {filterFavorites ? "No favorites yet" : "No photos yet"}

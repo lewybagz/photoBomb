@@ -1,6 +1,7 @@
 import { RegisterForm } from "@/components/auth/register-form";
 import { Camera } from "lucide-react";
 import { Link } from "react-router-dom";
+import logoImage from "@/assets/images/familygallerylogonowords.png";
 
 export function RegisterPage() {
   return (
@@ -15,11 +16,7 @@ export function RegisterPage() {
         className="mb-10 flex items-center gap-3 rounded-full border border-[color:var(--panel-border)] bg-white/70 px-6 py-3 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur"
       >
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
-          <img
-            src="/familygallerylogonowords.png"
-            alt="Photo Bomb"
-            className="h-full w-full"
-          />
+          <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
         </div>
         <div className="flex flex-col">
           <span className="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">

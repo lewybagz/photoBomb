@@ -28,6 +28,7 @@ import {
   Trash2,
   Loader2,
 } from "lucide-react";
+import logoImage from "@/assets/images/familygallerylogonowords.png";
 
 export function AlbumsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -98,11 +99,7 @@ export function AlbumsPage() {
         ) : albums.length === 0 ? (
           <div className="flex h-64 flex-col items-center justify-center text-center">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded">
-              <img
-                src="/familygallerylogonowords.png"
-                alt="Photo Bomb"
-                className="h-full w-full"
-              />
+              <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
             </div>
             <p className="text-lg font-medium text-foreground">No albums yet</p>
             <p className="mb-4 text-sm text-muted-foreground">

@@ -21,6 +21,7 @@ import {
   LogOut,
   User,
 } from "lucide-react";
+import logoImage from "@/assets/images/familygallerylogonowords.png";
 
 export function GalleryHeader() {
   const { user, userData, logout } = useAuth();
@@ -53,11 +54,7 @@ export function GalleryHeader() {
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <div className="flex h-full w-full items-center justify-center rounded-lg">
-              <img
-                src="/familygallerylogonowords.png"
-                alt="Photo Bomb"
-                className="h-10 w-10"
-              />
+              <img src={logoImage} alt="Photo Bomb" className="h-10 w-10" />
             </div>
             <div className="hidden sm:flex sm:flex-col">
               <span className="text-xs font-medium uppercase tracking-wider text-gray-400 font-bold">
