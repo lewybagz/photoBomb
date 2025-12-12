@@ -3,7 +3,6 @@ node_modules
 .pnpm-debug.log*
 
 # Production builds
-dist
 build
 
 # Environment files
@@ -79,7 +78,6 @@ pids
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/

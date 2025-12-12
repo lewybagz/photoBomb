@@ -97,9 +97,9 @@ export function PhotoGrid({
         <div className="mb-4 flex h-24 w-24 items-center justify-center rounded">
           <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
         </div>
-        <p className="text-lg font-medium text-gray-900">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
           {filterFavorites ? "No favorites yet" : "No photos yet"}
-        </p>
+        </h2>
         <p className="mb-4 text-sm text-gray-300 max-w-sm">
           {filterFavorites
             ? "Photos you favorite will appear here. Start exploring your gallery to find photos you love!"
@@ -119,8 +119,8 @@ export function PhotoGrid({
   }
 
   return (
-    <>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div className="h-full overflow-y-auto scrollbar-hide rounded-xl">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 rounded-xl">
         {displayPhotos.map((photo) => (
           <PhotoCard
             key={photo.id}
@@ -137,7 +137,7 @@ export function PhotoGrid({
           {loading && <Loader2 className="h-6 w-6 animate-spin text-primary" />}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -154,7 +154,7 @@ function PhotoCard({ photo, isFavorite, onClick }: PhotoCardProps) {
       className="group relative aspect-square overflow-hidden bg-gray-100 focus:outline-none focus:ring-1 focus:ring-red-500 hover:bg-gray-200 transition-colors duration-200 rounded-xl"
     >
       <img
-        src={photo.thumbUrl || "/placeholder.svg"}
+        src={photo.fullUrl || photo.thumbUrl || "/placeholder.svg"}
         alt=""
         loading="lazy"
         className="h-full w-full object-cover"

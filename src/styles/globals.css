@@ -186,4 +186,34 @@ html {
   h6 {
     font-family: "Chicle", cursive;
   }
+
+  /* Mobile optimizations to prevent unwanted zoom on input focus */
+  @media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="url"],
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+
+    /* Prevent zoom on focus for iOS Safari */
+    input:focus,
+    textarea:focus,
+    select:focus {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Hide scrollbars while maintaining scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 }

@@ -77,7 +77,6 @@ export function CreateAlbumModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={loading}
-                autoFocus
                 className="bg-background text-foreground"
               />
               {error && <p className="text-sm text-red-600">{error}</p>}

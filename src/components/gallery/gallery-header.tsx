@@ -56,12 +56,13 @@ export function GalleryHeader() {
             <div className="flex h-full w-full items-center justify-center rounded-lg">
               <img src={logoImage} alt="Photo Bomb" className="h-10 w-10" />
             </div>
-            <div className="hidden sm:flex sm:flex-col">
+            <div className="hidden sm:flex sm:flex-col items-start">
               <span className="text-xs font-medium uppercase tracking-wider text-gray-400 font-bold">
-                Photo
+                Family
               </span>
-              <span className="text-lg font-semibold text-red-400 -mt-0.5 font-bold">
-                Bomb
+              <span className="flex flex-row items-center text-lg font-semibold text-red-400 -mt-0.5 font-bold">
+                <h1 className="mr-1 tracking-wide">Photo</h1>
+                <h1 className="tracking-wide">Bomb</h1>
               </span>
             </div>
           </Link>

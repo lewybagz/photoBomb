@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useFavorites } from "@/contexts/favorites-context";
 import { useGallery, type Photo } from "@/contexts/gallery-context";
 import { useAuth } from "@/contexts/auth-context";
+import { useAlbums } from "@/contexts/albums-context";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
@@ -38,6 +39,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
@@ -54,9 +56,10 @@ export function PhotoViewerModal({
   open,
   onOpenChange,
 }: PhotoViewerModalProps) {
-  const { photos, refreshPhotos } = useGallery();
+  const { photos, refreshPhotos, removePhoto } = useGallery();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { user } = useAuth();
+  const { removePhotoFromAlbum } = useAlbums();
   const [showComments, setShowComments] = useState(false);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -153,58 +156,131 @@ export function PhotoViewerModal({
     if (!currentPhoto || !user) return;
 
     setIsDeleting(true);
+    const photoId = currentPhoto.id;
+
     try {
-      // First, remove this photo from all users' favorites
-      const usersRef = collection(db, "users");
-      const q = query(
-        usersRef,
-        where("favorites", "array-contains", currentPhoto.id)
-      );
-      const usersSnapshot = await getDocs(q);
+      // Check if photo document exists in Firestore
+      const photoDocRef = doc(db, "photos", photoId);
+      const photoDoc = await getDoc(photoDocRef);
+      const photoExists = photoDoc.exists();
 
-      // Update all users who have this photo in favorites
-      const updatePromises = usersSnapshot.docs.map((userDoc) =>
-        updateDoc(doc(db, "users", userDoc.id), {
-          favorites: arrayRemove(currentPhoto.id),
-        })
-      );
-
-      await Promise.all(updatePromises);
-
-      // Delete from Firestore
-      await deleteDoc(doc(db, "photos", currentPhoto.id));
-
-      // Extract storage paths and delete files
-      const url = new URL(currentPhoto.fullUrl);
-      const pathMatch = url.pathname.match(/\/o\/(.+)/);
-      if (pathMatch) {
-        const storagePath = decodeURIComponent(pathMatch[1]);
-        const storage = getStorage();
-
-        // Delete both original and thumbnail
-        const originalPath = storagePath.replace("/thumb/", "/original/");
-        const thumbPath = storagePath.replace("/original/", "/thumb/");
-
+      if (photoExists) {
+        // First, delete all comments for this photo
         try {
-          await deleteObject(ref(storage, originalPath));
+          const commentsRef = collection(db, "photos", photoId, "comments");
+          const commentsSnapshot = await getDocs(commentsRef);
+          const deleteCommentPromises = commentsSnapshot.docs.map(
+            (commentDoc) =>
+              deleteDoc(doc(db, "photos", photoId, "comments", commentDoc.id))
+          );
+          await Promise.all(deleteCommentPromises);
         } catch (error) {
-          console.warn("Failed to delete original image:", error);
+          console.warn(
+            "Failed to delete comments (may already be deleted):",
+            error
+          );
         }
 
-        try {
-          await deleteObject(ref(storage, thumbPath));
-        } catch (error) {
-          console.warn("Failed to delete thumbnail:", error);
+        // Remove photo from all albums
+        if (currentPhoto.albumIds && currentPhoto.albumIds.length > 0) {
+          const albumRemovalPromises = currentPhoto.albumIds.map((albumId) =>
+            removePhotoFromAlbum(photoId, albumId).catch((error) => {
+              console.warn(
+                `Failed to remove photo from album ${albumId}:`,
+                error
+              );
+            })
+          );
+          await Promise.all(albumRemovalPromises);
         }
+
+        // Delete from Firestore
+        try {
+          await deleteDoc(photoDocRef);
+        } catch (error) {
+          // If delete fails due to permissions, photo might already be deleted
+          console.warn(
+            "Failed to delete photo document (may already be deleted):",
+            error
+          );
+        }
+
+        // Remove this photo from all users' favorites
+        try {
+          const usersRef = collection(db, "users");
+          const q = query(
+            usersRef,
+            where("favorites", "array-contains", photoId)
+          );
+          const usersSnapshot = await getDocs(q);
+
+          const updatePromises = usersSnapshot.docs.map((userDoc) =>
+            updateDoc(doc(db, "users", userDoc.id), {
+              favorites: arrayRemove(photoId),
+            }).catch((error) => {
+              console.warn(
+                `Failed to remove from user ${userDoc.id} favorites:`,
+                error
+              );
+            })
+          );
+
+          await Promise.all(updatePromises);
+        } catch (error) {
+          console.warn("Failed to remove from favorites:", error);
+        }
+
+        // Extract storage paths and delete files
+        if (currentPhoto.fullUrl) {
+          try {
+            const url = new URL(currentPhoto.fullUrl);
+            const pathMatch = url.pathname.match(/\/o\/(.+)/);
+            if (pathMatch) {
+              const storagePath = decodeURIComponent(pathMatch[1]);
+              const storage = getStorage();
+
+              // Delete both original and thumbnail
+              const originalPath = storagePath.replace("/thumb/", "/original/");
+              const thumbPath = storagePath.replace("/original/", "/thumb/");
+
+              try {
+                await deleteObject(ref(storage, originalPath));
+              } catch (error) {
+                console.warn("Failed to delete original image:", error);
+              }
+
+              try {
+                await deleteObject(ref(storage, thumbPath));
+              } catch (error) {
+                console.warn("Failed to delete thumbnail:", error);
+              }
+            }
+          } catch (error) {
+            console.warn("Failed to delete storage files:", error);
+          }
+        }
+      } else {
+        // Photo doesn't exist in Firestore, just clean up local state
+        console.log(
+          "Photo document doesn't exist, cleaning up local state only"
+        );
       }
 
-      // Refresh the gallery to remove the deleted photo
+      // Remove from local state and cache immediately (regardless of Firestore state)
+      removePhoto(photoId);
+
+      // Refresh the gallery to ensure consistency
       await refreshPhotos();
 
       // Close the modal
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to delete photo:", error);
+      // Even if there's an error, try to remove from local state
+      removePhoto(photoId);
+      // Still close the modal and refresh
+      onOpenChange(false);
+      await refreshPhotos();
     } finally {
       setIsDeleting(false);
       setShowDeleteConfirm(false);

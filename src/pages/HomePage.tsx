@@ -32,28 +32,32 @@ export function HomePage() {
       </div>
 
       <header className="relative">
-        <nav className="mx-auto mt-10 flex max-w-6xl items-center justify-between rounded-2xl border border-[color:var(--panel-border)] bg-[color:var(--panel)] px-6 py-4 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur-lg lg:px-8">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl">
+        <nav className="mx-auto mt-10 flex max-w-[95vw] sm:max-w-6xl items-center justify-between rounded-2xl border border-[color:var(--panel-border)] bg-[color:var(--panel)] px-4 py-3 shadow-[0_18px_40px_-28px_var(--shadow-glow)] backdrop-blur-lg sm:px-6 lg:px-8">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3">
+            <div className="flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl">
               <img src={logoImage} alt="Photo Bomb" className="h-full w-full" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-muted-foreground">
                 Family
               </span>
-              <h4 className="text-xl font-semibold tracking-wide">
+              <h4 className="text-lg sm:text-xl font-semibold tracking-wide">
                 Photo Bomb
               </h4>
             </div>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link to="/login">
-              <Button variant="ghost" size="sm" className="rounded-full px-5">
-                Enter Now
+              <Button
+                variant="ghost"
+                size="sm"
+                className="rounded-full px-3 sm:px-5 text-sm bg-white/90 text-black"
+              >
+                Enter <span className="hidden sm:inline">Now</span>
               </Button>
             </Link>
             <Link to="/register">
-              <Button size="sm" className="rounded-full px-6">
+              <Button size="sm" className="rounded-full px-4 sm:px-6 text-sm">
                 Request Access
               </Button>
             </Link>
@@ -92,7 +96,7 @@ export function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="w-full rounded-full border-primary/30 bg-transparent px-10 backdrop-blur-none"
+                    className="w-full rounded-full border-primary/30 bg-white/80 px-10 backdrop-blur-none"
                   >
                     Enter the Gallery
                   </Button>
@@ -124,10 +128,9 @@ export function HomePage() {
             <h2 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
               Built for the way our family loves, shares, and remembers
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Every feature is infused with warmth so the app feels like a
-              living scrapbook—easy enough for the kids and comforting for our
-              grandparents.
+            <p className="mt-4 text-lg text-grey-300">
+              Every feature is infused with love and care to make it easy for
+              the family to use.
             </p>
           </div>
 
@@ -159,7 +162,7 @@ export function HomePage() {
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary shadow-[0_12px_26px_-24px_var(--shadow-glow)]">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold tracking-wide">
+                <h3 className="mt-6 text-xl font-semibold tracking-wide">
                   {title}
                 </h3>
                 <p className="mt-3 text-sm text-muted-foreground">
@@ -172,7 +175,7 @@ export function HomePage() {
       </section>
 
       <section className="relative py-20">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 rounded-3xl border border-[color:var(--panel-border)] bg-[linear-gradient(135deg,rgba(255,111,97,0.14),rgba(78,205,196,0.14))] px-6 py-16 text-center shadow-[0_28px_60px_-32px_var(--shadow-glow)] backdrop-blur lg:px-16">
+        <div className="mx-auto flex max-w-[90vw] sm:max-w-5xl flex-col items-center gap-8 rounded-3xl border border-[color:var(--panel-border)] bg-[linear-gradient(135deg,rgba(255,111,97,0.14),rgba(78,205,196,0.14))] px-6 py-16 text-center shadow-[0_28px_60px_-32px_var(--shadow-glow)] backdrop-blur lg:px-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
             From our family to yours
           </div>

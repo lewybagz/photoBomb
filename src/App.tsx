@@ -1,13 +1,14 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { AlbumsPage } from "@/pages/AlbumsPage"
-import { AlbumDetailPage } from "@/pages/AlbumDetailPage"
-import { FavoritesPage } from "@/pages/FavoritesPage"
-import { GalleryPage } from "@/pages/GalleryPage"
-import { HealthPage } from "@/pages/HealthPage"
-import { HomePage } from "@/pages/HomePage"
-import { LoginPage } from "@/pages/LoginPage"
-import { ProfilePage } from "@/pages/ProfilePage"
-import { RegisterPage } from "@/pages/RegisterPage"
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AlbumsPage } from "@/pages/AlbumsPage";
+import { AlbumDetailPage } from "@/pages/AlbumDetailPage";
+import { FavoritesPage } from "@/pages/FavoritesPage";
+import { GalleryPage } from "@/pages/GalleryPage";
+import { HealthPage } from "@/pages/HealthPage";
+import { HomePage } from "@/pages/HomePage";
+import { LoginPage } from "@/pages/LoginPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
+import { ProfilePage } from "@/pages/ProfilePage";
+import { RegisterPage } from "@/pages/RegisterPage";
 
 export function App() {
   return (
@@ -21,9 +22,7 @@ export function App() {
       <Route path="/albums/:id" element={<AlbumDetailPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/health" element={<HealthPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
-  )
+  );
 }
-
-
